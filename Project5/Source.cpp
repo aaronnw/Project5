@@ -1,7 +1,7 @@
 #include <iostream>
 using namespace std;
 
-/*
+
 template <class DT>  
 class ParentBinaryTree {
 	template<class T>
@@ -17,13 +17,13 @@ public:
 	void operator=(const ParentBinaryTree<DT>& pbt);
 	int getSize();
 	int getHeight();
-	getLeft();
-	getRight();
+	DT getLeft(DT x);
+	DT getRight(DT x);
 	preorderTraversal();
 	inorderTraversal();
 	postorderTraversal();
 };
-*/
+
 
 int main() {
 	int numNodes = 0;
@@ -46,4 +46,9 @@ int main() {
 		
 	}
 	return 0;
+}
+
+template<class DT>
+int ParentBinaryTree<DT>::getSize() {
+	return numNodes;
 }
