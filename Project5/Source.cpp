@@ -17,12 +17,70 @@ public:
 	void operator=(const ParentBinaryTree<DT>& pbt);
 	int getSize();
 	int getHeight();
-	DT getLeft(DT x);
-	DT getRight(DT x);
-	preorderTraversal();
-	inorderTraversal();
-	postorderTraversal();
+	DT& getLeft(const DT& x);
+	DT& getRight(const DT& x);
+	void preorderTraversal();
+	void inorderTraversal();
+	void postorderTraversal();
 };
+///Default Constructor
+template<class DT>
+ParentBinaryTree<DT>::ParentBinaryTree() {
+	DT* ParentArray = NULL;
+	numNodes = 0;
+}
+///Initializer
+template<class DT>
+ParentBinaryTree<DT>::ParentBinaryTree(int size) {
+	DT* ParentArray = new ParentArray<DT>[size];
+	numNodes = size;
+}
+///Destructor
+template<class DT>
+ParentBinaryTree<DT>::~ParentBinaryTree() {
+
+}
+template<class DT>
+ParentBinaryTree<DT>::ParentBinaryTree(const ParentBinaryTree & pbt) {
+	for (int i = 0; i < pbt.getSize(); i++) {
+		ParentArray[i] = pbt.ParentArray[i];
+	}
+	numNodes = pbt.numNodes;
+}
+///Returns number of nodes in the tree
+template<class DT>
+int ParentBinaryTree<DT>::getSize() {
+	return numNodes;
+}
+
+template<class DT>
+int ParentBinaryTree<DT>::getHeight() {
+	return 0;
+}
+
+template<class DT>
+DT & ParentBinaryTree<DT>::getLeft(const DT & x) {
+	// TODO: insert return statement here
+	return 0;
+}
+
+template<class DT>
+DT & ParentBinaryTree<DT>::getRight(const DT & x) {
+	// TODO: insert return statement here
+	return 0;
+}
+
+template<class DT>
+void ParentBinaryTree<DT>::preorderTraversal() {
+}
+
+template<class DT>
+void ParentBinaryTree<DT>::inorderTraversal() {
+}
+
+template<class DT>
+void ParentBinaryTree<DT>::postorderTraversal() {
+}
 
 
 int main() {
@@ -46,9 +104,4 @@ int main() {
 		
 	}
 	return 0;
-}
-
-template<class DT>
-int ParentBinaryTree<DT>::getSize() {
-	return numNodes;
 }
