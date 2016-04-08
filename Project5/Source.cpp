@@ -93,15 +93,17 @@ int ParentBinaryTree<DT>::getHeight() {
 	int maxHeight = 0;
 	int height = 0;
 	for (int i = 0; i < numNodes; i++) {
-		int k = i;
-		while (ParentArray[k] != -1) {
-			k = ParentArray[k];
-			height++;
+		if (isLeaf(i)) {
+			int k = i;
+			while (ParentArray[k] != -1) {
+				k = ParentArray[k];
+				height++;
+			}
+			if (height > maxHeight) {
+				maxHeight = height;
+			}
+			height = 0;
 		}
-		if (height > maxHeight) {
-			maxHeight = height;
-		}
-		height = 0;
 	}
 	return maxHeight;
 }
@@ -136,10 +138,9 @@ DT & ParentBinaryTree<DT>::getRight(const DT & x) {
 
 template<class DT>
 bool ParentBinaryTree<DT>::isLeaf(const DT & x) {
-	if ((getLeft(x) == -1 && ) && (getRight(x) == -1)) {
+	if ((getLeft(x) == -1 ) && (getRight(x) == -1)) {
 		return true;
-	}
-	else {
+	} else {
 		return false;
 	}
 }
