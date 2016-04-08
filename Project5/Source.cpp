@@ -20,8 +20,8 @@ public:
 	void insert(const DT & root, const DT & left, const DT & right);
 	int getSize();
 	int getHeight();
-	DT& getLeft(const DT& x);
-	DT& getRight(const DT& x);
+	int getLeft(const DT& x);
+	int getRight(const DT& x);
 	bool isLeaf(const DT& x);
 	void preorderTraversal();
 	void preorderTraversal(int x);
@@ -63,7 +63,13 @@ ParentBinaryTree<DT>::ParentBinaryTree(const ParentBinaryTree & pbt) {
 }
 template<class DT>
 void ParentBinaryTree<DT>::operator=(const ParentBinaryTree<DT>& pbt) {
-	//TODO
+	for (int i = 0; i < pbt.getSize(); i++) {
+		ParentArray[i] = pbt.ParentArray[i];
+	}
+	for (int i = 0; i < pbt.getSize(); i++) {
+		LeftRightArray[i] = pbt.LeftRightArray[i];
+	}
+	numNodes = pbt.numNodes;
 }
 template<class DT>
 void ParentBinaryTree<DT>::insert(const DT & root, const DT & left, const DT & right) {
@@ -109,7 +115,7 @@ int ParentBinaryTree<DT>::getHeight() {
 }
 
 template<class DT>
-DT & ParentBinaryTree<DT>::getLeft(const DT & x) {
+int ParentBinaryTree<DT>::getLeft(const DT & x) {
 	//Search through parent array for the value x to find it's children
 	for (int i = 0; i < numNodes; i++) {
 		if (ParentArray[i] == x) {
@@ -118,12 +124,11 @@ DT & ParentBinaryTree<DT>::getLeft(const DT & x) {
 			}
 		}
 	}
-	int noChild = -1;
-	return noChild;
+	return -1;
 }
 
 template<class DT>
-DT & ParentBinaryTree<DT>::getRight(const DT & x) {
+int ParentBinaryTree<DT>::getRight(const DT & x) {
 	//Search through parent array for the value x to find it's children
 	for (int i = 0; i < numNodes; i++) {
 		if (ParentArray[i] == x) {
@@ -132,8 +137,7 @@ DT & ParentBinaryTree<DT>::getRight(const DT & x) {
 			}
 		}
 	}
-	int noChild = -1;
-	return noChild;
+	return -1;
 }
 
 template<class DT>
@@ -217,11 +221,9 @@ void ParentBinaryTree<DT>::postorderTraversal() {
 
 int main() {
 	int numNodes = 0;
-	int temp;
 	int root;
 	int left;
 	int right;
-	char c;
 	//Reads the number of nodes
 	cin >> numNodes;
 	cout << numNodes << endl;
