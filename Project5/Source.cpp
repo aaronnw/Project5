@@ -22,9 +22,13 @@ public:
 	int getHeight();
 	DT& getLeft(const DT& x);
 	DT& getRight(const DT& x);
+	bool isLeaf(const DT& x);
 	void preorderTraversal();
+	void preorderTraversal(int x);
 	void inorderTraversal();
+	void inorderTraversal(int x);
 	void postorderTraversal();
+	void postorderTraversal(int x);
 };
 
 ///Default Constructor
@@ -48,9 +52,12 @@ ParentBinaryTree<DT>::~ParentBinaryTree() {
 }
 template<class DT>
 ParentBinaryTree<DT>::ParentBinaryTree(const ParentBinaryTree & pbt) {
-	//TODO
+	//Copy the parent array
 	for (int i = 0; i < pbt.getSize(); i++) {
 		ParentArray[i] = pbt.ParentArray[i];
+	}
+	for (int i = 0; i < pbt.getSize(); i++) {
+		LeftRightArray[i] = pbt.LeftRightArray[i];
 	}
 	numNodes = pbt.numNodes;
 }
@@ -128,18 +135,82 @@ DT & ParentBinaryTree<DT>::getRight(const DT & x) {
 }
 
 template<class DT>
-void ParentBinaryTree<DT>::preorderTraversal() {
-	//TODO
+bool ParentBinaryTree<DT>::isLeaf(const DT & x) {
+	if ((getLeft(x) == -1 && ) && (getRight(x) == -1)) {
+		return true;
+	}
+	else {
+		return false;
+	}
 }
 
+template<class DT>
+void ParentBinaryTree<DT>::preorderTraversal(int x) {
+	//Root, left, right
+	//Find root node
+	cout << x;
+	if (getLeft(x) != -1) {
+		preorderTraversal(getLeft(x));
+	}
+	if (getRight(x) != -1) {
+		preorderTraversal(getRight(x));
+	}
+}
+template<class DT>
+void ParentBinaryTree<DT>::preorderTraversal() {
+	//Root, left, right
+	//Find root node
+	int root = 0;
+	while (ParentArray[root] != -1 && root < numNodes) {
+		root++;
+	}
+	preorderTraversal(root);
+}
+
+template<class DT>
+void ParentBinaryTree<DT>::inorderTraversal(int x) {
+	//Left, root, right
+	//Find root node
+	if (getLeft(x) != -1) {
+		inorderTraversal(getLeft(x));
+	}
+	cout << x;
+	if (getRight(x) != -1) {
+		inorderTraversal(getRight(x));
+	}
+}
 template<class DT>
 void ParentBinaryTree<DT>::inorderTraversal() {
-	//TODO
+	//Left, root, right
+	//Find root node
+	int root = 0;
+	while (ParentArray[root] != -1 && root < numNodes) {
+		root++;
+	}
+	inorderTraversal(root);
 }
 
 template<class DT>
+void ParentBinaryTree<DT>::postorderTraversal(int x) {
+	//Left, root, right
+	//Find root node
+	if (getLeft(x) != -1) {
+		postorderTraversal(getLeft(x));
+	}
+	if (getRight(x) != -1) {
+		postorderTraversal(getRight(x));
+	}
+	cout << x;
+}
+template<class DT>
 void ParentBinaryTree<DT>::postorderTraversal() {
-	//TODO
+	//Left, root, right
+	//Find root node
+	int root = 0;
+	while (ParentArray[root] != -1 && root < numNodes) {
+		root++;
+	}
+	postorderTraversal(root);
 }
 
 
@@ -163,5 +234,11 @@ int main() {
 		tree->insert(root, left, right);
 	}
 	cout << tree->getHeight() << endl;
+	tree->preorderTraversal();
+	cout << endl;
+	tree->inorderTraversal();
+	cout << endl;
+	tree->postorderTraversal();
+	cout << endl;
 	return 0;
 }
