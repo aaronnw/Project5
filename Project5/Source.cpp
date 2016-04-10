@@ -106,12 +106,13 @@ template<class DT>
 int ParentBinaryTree<DT>::getSize() {
 	return numNodes;
 }
-///Returns the height of the tree
+//Returns the height of the tree
 template<class DT>
 int ParentBinaryTree<DT>::getHeight() {
-	int maxHeight = 0;
-	int height = 0;
+	int maxHeight = 1;
+	int height = 1;
 	for (int i = 0; i < numNodes; i++) {
+		//0 counts as a leaf even if we haven't entered one but parentarray[0] is undefined because there is no 0
 		if (isLeaf(i)) {
 			int k = i;
 			while (ParentArray[k] != -1) {
@@ -125,7 +126,7 @@ int ParentBinaryTree<DT>::getHeight() {
 		}
 	}
 	return maxHeight;
-}
+} 
 ///Returns the left child of a given position
 template<class DT>
 int ParentBinaryTree<DT>::getLeft(int x) {
@@ -240,6 +241,8 @@ int main() {
 	int root;
 	int left;
 	int right;
+	//Keeps track of number of lines to avoid crash if too many are read
+	int numLines = 0;
 	//Reads the number of nodes
 	cin >> numNodes;
 	cout << numNodes << endl;
@@ -251,7 +254,14 @@ int main() {
 		cin >> root;
 		cin >> left;
 		cin >> right;
-		tree->insert(root, left, right);
+		numLines++;
+		if (numLines <= numNodes) {
+			tree->insert(root, left, right);
+		}
+		else {
+			cout << "Wrong number of nodes given. Using given number. Some input may be ignored. " << endl;
+			break;
+		}
 	}
 	//Show that all the methods work
 	//Default constructor
@@ -260,10 +270,10 @@ int main() {
 	ParentBinaryTree<int>* newTree = new ParentBinaryTree<int>(*tree);
 	//Overloaded assignment operator
 	ParentBinaryTree<int>* tree2 = tree;
-	//size method
-	cout << tree->getSize() << endl;
-	//height method
-	cout << tree->getHeight() << endl;
+	//Size method
+	cout << "size: " << tree->getSize() << endl;
+	//Height method
+	cout << "height: " << tree->getHeight() << endl;
 	//Preorder
 	tree->preorderTraversal();
 	cout << endl;
@@ -273,7 +283,12 @@ int main() {
 	//Postorder
 	tree->postorderTraversal();
 	cout << endl;
+	//Overloaded ostream -- preorder traversal
 	cout << *tree;
-	//getRight and getLeft included in traversals
+	//getRight and getLeft included in traversals 
+	//getLeft on node 0
+	cout << tree->getLeft(0) << endl;
+	//getRight on node 0
+	cout << tree->getRight(0) << endl;
 	return 0;
 }
